@@ -1,0 +1,162 @@
+
+<div style="text-align: center;">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Tipos de categoria</mat-label>
+    <mat-select [formControl]="seleccionTipo"
+    (selectionChange)="busquedaTipo($event.value)">
+      <mat-option *ngFor="let tipo of opciones; let i = index" [value]="i">
+        {{tipo}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+
+
+
+<mat-tab-group mat-align-tabs="center"
+(selectedTabChange)="cambioCategoria($event.tab.textLabel)">
+
+    <mat-tab *ngFor="let categoria of categorias" [label]="categoria"> 
+
+    </mat-tab>
+   
+  </mat-tab-group>
+
+  
+
+<div class="noticas" >
+
+
+    <mat-card *ngFor="let noticia of noticias; let i = index" style="margin-top: 20px;">
+
+
+      <div style="text-align: right; margin-bottom: 15px;">
+
+        <button mat-raised-button style="margin-right: 10px;"
+        (click)="cargarVisitas(i)">
+           Visitas
+          <mat-icon>
+            leaderboard
+          </mat-icon>
+
+        </button>
+
+        <button mat-raised-button style="margin-right: 10px;"
+        (click)="mostrarGraficos(noticia)">
+           Reacciones y encuestas
+          <mat-icon>
+            leaderboard
+          </mat-icon>
+
+        </button>
+
+
+        <button mat-raised-button style="margin-right: 10px;"
+        (click)="editarNoticia(i)">
+          Editar
+          <mat-icon>
+            edit
+          </mat-icon>
+
+        </button>
+
+        <button mat-raised-button
+        (click)="eliminarNoticia(i)">
+          Eliminar
+          <mat-icon>
+            delete
+          </mat-icon>
+
+        </button>
+
+      </div>
+
+      <div style="text-align: right;">
+        <p class="text">{{ noticia.date | date : 'dd/MM/yyyy hh:mm a' }}</p>
+      </div>
+
+      <div class="autor">
+        <img  [src]="noticia.admin.image"  class="image" align="left"/>
+        <p class="text">  {{  noticia.admin.fullName}}</p>
+
+      </div>
+
+   
+
+      <mat-card-title style="text-align: center; margin-top: 10px;">
+        {{noticia.title}}
+      </mat-card-title>
+
+
+     
+
+      <!-- <mat-card-content style="text-align: justify; margin-top: 20px; ">
+
+        <p class="descripcion">
+          {{ noticia.description | verMas}}
+        </p>
+
+
+      </mat-card-content> -->
+     
+      
+      <div *ngIf="noticia.encuesta.length == 0 && noticia.multimedia.length > 0"
+        [ngSwitch]="noticia.multimedia[0].tipo"  class="multimedia">
+
+
+        <img *ngSwitchCase="'image'" width="100%" height="100%"
+        [src]="crearUrlImg(noticia.multimedia[0].src)" />
+
+        <video *ngSwitchCase="'video'" width="100%" height="100%" controls 
+        [src]="crearUrlVideo(noticia.multimedia[0].src)">
+
+        </video>
+
+        <iframe 
+        *ngSwitchCase="'youtube'"
+      width="100%"
+      height="300px"
+      [src]=" noticia.multimedia[0].src | domseguro"
+      frameborder="0"
+      allow=" autoplay; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen
+      >
+
+      </iframe>
+
+
+      </div>
+
+      <mat-card-content class="contenido" [innerHTML]="noticia.description | htmlSeguro ">
+
+      </mat-card-content>
+
+      <div class="row" style="text-align: center;">
+
+        <div class="column">
+          <p *ngIf="noticia.links.length > 0 " class="links" style="margin-right: 6px;">
+            <mat-icon>open_in_new</mat-icon>
+            &nbsp; {{noticia.links.length }} links &nbsp; 
+           
+          </p>
+         
+        </div>
+
+        <div class="column">
+          <p *ngIf="noticia.multimedia.length > 1" class="bottom-right" style="margin-left: 6px;">
+            <mat-icon>collections</mat-icon>
+            &nbsp; + {{ noticia.multimedia.length-1 }} De multimedia &nbsp; </p>
+          
+        </div>
+
+      </div>
+        
+
+    </mat-card>
+
+
+
+
+  </div>

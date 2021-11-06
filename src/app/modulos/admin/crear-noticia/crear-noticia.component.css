@@ -1,0 +1,67 @@
+@media screen and (min-width: 480px) {
+
+    .mainDiv{
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+    .column {
+        margin-top: 10px;
+        margin-right: 10px;
+        margin-left: 10px;
+        float: left;
+        width: 400px;
+      }
+      
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      mat-card{
+        text-align: center;
+      }
+
+      
+    
+/* 
+    mat-card{
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 500px;
+        height: auto;
+    } */
+
+}
+
+
+@media screen and (max-width: 479px) {
+
+    .column {
+        
+        height: auto;  
+      }
+
+      .row{
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      mat-card{
+        text-align: center;
+      }
+
+}
+
+.inputs{
+    width: 80%;
+}
+
+.botones{
+  width: 80%;
+}
+

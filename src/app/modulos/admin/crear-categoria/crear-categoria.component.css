@@ -1,0 +1,33 @@
+.mat-header-cell {    
+    text-align: center;   
+    color: black;
+    font-weight: bold; 
+}
+
+@media screen and (min-width: 480px) {
+
+    
+    
+
+    mat-card{
+        margin-left: auto;
+        margin-right: auto;
+        width: 700px;
+        height: auto;
+    }
+
+}
+
+
+@media screen and (max-width: 479px) {
+
+  
+
+    mat-card{
+        padding-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 80%;    
+    }
+
+}

@@ -1,0 +1,226 @@
+<mat-toolbar style=" padding: 0;background: white;" >
+
+    <mat-toolbar-row  style="box-shadow: inset 0 -3px 0 0 rgb(173, 173, 173);" >
+
+        
+
+        <button mat-icon-button  (click)="matDialogRef.close()"
+        
+        class="regresar">
+
+          <mat-icon>
+            arrow_back_ios 
+          </mat-icon>  
+            
+          Regresar
+
+        </button>
+
+
+       
+            <button mat-icon-button  (click)="compartirNoticia()"
+            class="compartir">
+
+            <mat-icon>
+                share
+            </mat-icon>  
+                  
+            Compartir
+      
+          </button>
+      
+        
+
+
+    </mat-toolbar-row>
+
+
+</mat-toolbar>
+
+
+<!-- 
+
+<iframe [src]="link | slidesUrl" ></iframe> -->
+
+
+
+
+
+<mat-card   >
+
+  <div style="text-align: right;">
+    <p class="text">{{ data.noticia.date | date : 'dd/MM/yyyy hh:mm a' }}</p>
+  </div>
+
+  <div class="autor">
+    <img  [src]="data.noticia.admin.image"  class="image" align="left"/>
+    <p class="text">  {{  data.noticia.admin.fullName}}</p>
+
+  </div>
+
+   
+
+      <mat-card-title style="text-align: center; margin-top: 10px;">
+        {{data.noticia.title}}
+      </mat-card-title>
+     
+     
+
+      <!-- <mat-card-content style="text-align: justify; margin-top: 20px; ">
+
+        <p class="descripcion">
+          {{ data.noticia.description}}
+        </p>
+
+
+      </mat-card-content> -->
+
+      <div *ngIf="data.noticia.encuesta.length == 0 " 
+    
+    [ngClass]="{
+      'multimedias': data.noticia.multimedia.length > 1,
+      'multimedia': data.noticia.multimedia.length == 1 
+    }"
+    style=" width: 100%;">
+
+      <div *ngIf="data.noticia.multimedia.length == 1"
+        [ngSwitch]="data.noticia.multimedia[0].tipo"  class="multimedia">
+  
+  
+        <img *ngSwitchCase="'image'" width="100%" height="100%"
+        [src]="crearUrlImg(data.noticia.multimedia[0].src)" 
+        [ngClass]="{
+          'zoom-image': imagenAmpliada
+        }"
+        (click)="imageZoom()"/>
+  
+        <video *ngSwitchCase="'video'" width="100%" height="100%" controls 
+        [src]="crearUrlVideo(data.noticia.multimedia[0].src)">
+  
+        </video>
+  
+        <iframe 
+        *ngSwitchCase="'youtube'"
+      width="100%"
+      height="300px"
+      [src]="data.noticia.multimedia[0].src | domseguro"
+      frameborder="0"
+      allow=" autoplay; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen
+      >
+  
+      </iframe>
+  
+  
+
+        <iframe [src]="data.noticia.multimedia[0].src | slidesUrl" *ngSwitchCase="'slides'"
+        width="100%" height="auto" frameborder="0"
+        allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+        
+
+        
+
+      </div>
+
+      <iframe [src]="data.noticia.multimedia[1]?.src | slidesUrl" *ngIf="data.noticia?.multimedia[1]?.tipo == 'slides'"
+        width="100%" height="400px" frameborder="0"
+        allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+     
+          
+        <app-slider  *ngIf=" data.noticia.multimedia[1]?.tipo != 'slides' && data.noticia.multimedia.length > 1"  [slides]="data.noticia.multimedia"
+          [cargarImagenes]="true">
+      
+        </app-slider>
+    
+
+
+    </div>
+
+     
+
+
+      <div  *ngIf="data.noticia.encuesta.length > 0" style="text-align: center; margin-top: 15px;">
+
+
+        <ngx-charts-pie-chart 
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="single"
+          [gradient]="gradient"
+          [legend]="false"
+          [legendPosition]="legendPosition"
+          [legendTitle]="'Respuestas'"
+          [labels]="showLabels"
+          [doughnut]="isDoughnut"
+           *ngIf="data.reacciones.length > 0">
+        </ngx-charts-pie-chart>
+
+        <p *ngIf="data.reacciones.length == 0">Nadia a reaccionado aun a la noticia</p>
+        
+
+        <!-- <p> Elige tu resupuesta</p> -->
+
+       
+
+      </div >
+
+      <mat-card-content style=" margin-top: 20px; " [innerHTML]="data.noticia.description | htmlSeguro">
+
+      </mat-card-content>
+
+
+
+      <button mat-raised-button type="button" style="margin-top: 15px;"
+      *ngFor=" let respuesta of respuestasNoticia; let i = index"
+      (click)="opcionEcuesta(i)"
+      [ngClass]="{
+        'encuestaResp': respuestaIndex == i ,
+        'nomegustaResp': respuestaIndex == i && noMeGusta(respuesta),
+        'reaccionesGustar': dosReacciones(respuesta),
+        'reacciones': !dosReacciones(respuesta)
+      }"
+      [disabled]="reaccionando">
+
+      <mat-icon *ngIf="respuesta == 'Me gusta'">
+        thumb_up_off_alt 
+      </mat-icon> 
+      
+      <mat-icon *ngIf="respuesta == 'No me gusta'">
+        thumb_down_off_alt 
+      </mat-icon> 
+      
+
+       {{respuesta}}
+    
+      </button>
+
+
+
+      <div *ngIf="data.noticia.links.length > 0 " style="text-align: center; margin-top: 15px;">
+
+        <p *ngFor="let link of data.noticia.links" (click)="abrirLink(link)"
+        class="link">
+        <mat-icon>open_in_new</mat-icon>
+        {{ link | verMas }}
+        
+        
+        </p>
+
+      </div>
+
+     
+        
+
+ 
+
+    </mat-card>
+
+    
+
+    
+
+   
+
+
+

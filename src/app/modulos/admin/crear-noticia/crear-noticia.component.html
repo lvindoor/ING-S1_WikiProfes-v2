@@ -1,0 +1,468 @@
+
+
+
+<div class="mainDiv">
+
+    <div class="row">
+
+        <div class="column">
+
+            <mat-card >
+
+              
+         
+                <form [formGroup]="noticiaForm">
+        
+                    <mat-form-field appearance="fill" class="inputs">
+                        <mat-label>Titulo</mat-label>
+                        <input matInput formControlName="titulo"
+                        type="text">
+                    </mat-form-field>
+        
+                    <!-- <mat-form-field appearance="fill" class="inputs">
+                        <mat-label>Contenido</mat-label>
+                        <textarea matInput formControlName="texto"
+                        rows="15" cols="40"
+                        style="resize: none;"></textarea>
+                    </mat-form-field> -->
+                
+
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Tipos de categoria</mat-label>
+                        <mat-select [formControl]="seleccionTipo"
+                        (selectionChange)="busquedaTipo($event.value)">
+                          <mat-option *ngFor="let tipo of opciones; let i = index" [value]="i">
+                            {{tipo}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div [ngSwitch]="seleccionTipo.value">
+
+                        <mat-form-field appearance="fill" class="inputs" *ngSwitchCase="0">
+                            <mat-label>Categoria regional</mat-label>
+                            <mat-select formControlName="categoria">
+                              <mat-option *ngFor="let categoria of categorias; let i = index" [value]="categoria">
+                                {{categoria}}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" *ngSwitchCase="1">
+                            <mat-label>Plantas</mat-label>
+                            <mat-select formControlName="categoria"
+                            >
+                              <mat-option *ngFor="let planta of plantasNombres;" [value]="planta">
+                                {{planta}}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" *ngSwitchCase="2">
+                            <mat-label>Departamentos</mat-label>
+                            <mat-select formControlName="categoria"
+                            >
+                              <mat-option *ngFor="let departamento of departamentosNombres;" [value]="departamento">
+                                {{departamento}}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+
+
+
+                    </div>
+
+
+                    <!-- <mat-form-field appearance="fill">
+                        <mat-label>Tipos de noticia</mat-label>
+                        <mat-select [formControl]="noticiaTipo"
+                        >
+                          <mat-option *ngFor="let tipo of tiposNoticias; let i = index" [value]="i">
+                            {{tipo}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field> -->
+
+                   
+
+                   
+        
+                    <p>
+                        <mat-checkbox appearance="fill" 
+                        class="inputs" 
+                        (change)="encuestaToggle($event.checked)"
+                        formControlName="encuesta"
+                        style="font-size: large;" >
+                        Encuesta
+                        </mat-checkbox>
+                    </p>
+
+                
+
+                    <ckeditor [editor]="Editor" [config]="config" formControlName="texto"></ckeditor>
+
+
+                    <mat-form-field appearance="fill" class="inputs"
+                    style="margin-top: 15px;">
+                        <mat-label>Ingresa el link </mat-label>
+                        <input matInput [formControl]="link"
+                        type="text">
+                    </mat-form-field>
+    
+                    
+    
+                    <button 
+                        mat-raised-button [disabled]="link.invalid"
+                        (click)="agregarLink()"
+                        type="button"
+                        style="width: 60%;">
+                        Agregar link
+                    </button>
+    
+    
+                    <table style="width: 100%;">
+    
+                        <tr>
+                            <th style="width: 85%;">
+                                link
+                            </th>
+    
+                            <th style="width: 15%;">
+                                Eliminar
+                            </th>
+                        </tr>
+    
+                        <tr *ngFor="let link of links; let i = index">
+                            <th style="word-break: break-all;">
+                                <a (click)="abrirLink(link)">{{link}}</a>
+                            </th>
+                            <th>
+                                <mat-icon (click)="elminarLink(i)">
+                                    clear
+                                </mat-icon>
+                            </th>
+                        </tr>
+    
+                    </table>
+        
+                   
+        
+        
+                </form>
+        
+                
+        
+        
+            </mat-card>
+
+        </div>
+
+        <input type="file" #multim style="display: none;" accept="image/*,video/*" 
+        (change)="cargarMultimedia($event.target.files)" type="file" 
+        multiple>
+
+        <div class="column" *ngIf="!noticiaForm.value.encuesta" >
+
+            
+
+          
+
+            <mat-card >
+
+                <!-- <button (click)="eliminarMultimedia()"
+                    mat-raised-button
+                    color="warning"
+                    style="margin-top: 15px;">
+                    Eliminar toda la multimedia 
+            </button> -->
+
+                <div *ngIf="multimedia[1]?.tipo != 'slides' ">
+        
+                   
+                    <button (click)="multim.click()" mat-raised-button 
+                    style="width: 80%;" type="button"
+                    color="primary">
+                      Seleccionar de mi PC
+                    </button>
+                    
+
+                    <div style="width: 100%; height: 450px; margin-top: 20px;">
+        
+                <app-slider [slides]=[] [cargarImagenes]="false" ></app-slider>
+        
+                </div>
+        
+            
+        
+                    <mat-form-field appearance="fill" class="inputs"
+                    style="margin-top: 15px;">
+                        <mat-label>Link valido: https://youtu.be/aPcnL9U-yjQ</mat-label>
+                        <input matInput [formControl]="videoYoutube"
+                        type="text">
+                    </mat-form-field>
+        
+                    <button
+                    mat-raised-button [disabled]="videoYoutube.invalid"
+                    (click)="agregarVideo()"
+                    type="button">
+                    Agregar video de YOUTUBE
+                    </button>
+
+
+                    <mat-form-field appearance="fill" class="inputs"
+                    style="margin-top: 15px;" *ngIf="multimedia.length == 1 && multimedia[0].tipo == 'image' ">
+                        <mat-label> Link del slide </mat-label>
+                        <input matInput [formControl]="slidesUrl"
+                        type="text" >
+                    </mat-form-field>
+        
+                    <button *ngIf="multimedia.length == 1 && multimedia[0].tipo == 'image' "
+                    mat-raised-button [disabled]="slidesUrl.invalid"
+                    (click)="agregarSlides() " 
+                    type="button" >
+                    Agregar slides de Google
+                    </button>
+        
+        
+              
+    
+    
+                </div>
+
+
+                <div *ngIf="multimedia[1]?.tipo == 'slides' ">
+
+                 <!-- <img [src]="multimedia[0].src" width="100%" height="450px"> -->
+
+                 <!-- <button
+                 mat-raised-button 
+                 (click)="removerSlide()"
+                 type="button" color="warn">
+                 Remover Slides
+                 </button>
+                  -->
+                 
+                 <iframe 
+                 [src]="multimedia[1].src | slidesUrl"  width="100%" height="400px" 
+                 frameborder="0"
+             allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+                    
+
+
+                </div>
+
+                
+
+            </mat-card>
+
+          
+
+
+        </div>
+
+
+        <div class="column" *ngIf="noticiaForm.value.encuesta">
+
+
+            <mat-card>
+
+                <mat-form-field appearance="fill" class="inputs">
+                    <mat-label>Ingresa la respuesta </mat-label>
+                    <input matInput [formControl]="respuesta"
+                    type="text">
+                </mat-form-field>
+
+                
+
+                <button 
+                    mat-raised-button [disabled]="respuesta.invalid"
+                    (click)="agregarRespuesta()"
+                    type="button">
+                    Agregar Respuesta
+                </button>
+
+                <table style="width: 100%;">
+    
+                    <tr>
+                        <th style="width: 85%;">
+                            Respuesta
+                        </th>
+    
+                        <th style="width: 15%;">
+                            Eliminar
+                        </th>
+                    </tr>
+    
+                    <tr *ngFor="let resp of respuestas; let i = index">
+                        <th>
+                            <p>{{resp}}</p>
+                        </th>
+                        <th>
+                            <mat-icon (click)="eliminarRespuesta(i)">
+                                clear
+                            </mat-icon>
+                        </th>
+                    </tr>
+    
+                </table>
+
+
+
+            </mat-card>
+
+    
+
+        </div>
+
+
+        <!-- notificaciones -->
+      <div class="column">
+
+
+ <mat-card  >
+
+
+
+<div style="text-align: center;">
+
+    <form [formGroup]="noticiaForm">
+
+        <mat-form-field appearance="fill" class="inputs">
+            <mat-label>Titulo de la notificacion</mat-label>
+            <input matInput formControlName="tituloNotificacion"
+            type="text">
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill" class="inputs">
+            <mat-label>Contenido de la notificacion</mat-label>
+            <input matInput formControlName="cuerpoNotificacion"
+            type="text">
+        </mat-form-field>
+
+    </form>
+
+   
+
+</div>
+
+
+
+<mat-tab-group mat-align-tabs="center" (selectedTabChange)="cargarZonas($event.index)"
+style="text-align: center;">
+
+    <mat-tab label="TODOS" style="padding-top: 15px;"> 
+
+        <button (click)="enviarATodos()"
+                    mat-raised-button 
+                    type="button"
+                    class="botones"
+                    color="primary"
+                    [disabled]="noticiaForm.invalid">
+    Publicar y notificar
+    </button>
+
+
+    </mat-tab>
+    <mat-tab label="Un usuario" style="margin-top: 15px;"> 
+
+        <mat-form-field appearance="fill">
+            <mat-label>Numero de empleado</mat-label>
+            <input matInput (change)="buscarUsuario($event.target.value)"
+            type="number">
+        </mat-form-field>
+
+        <button (click)="enviarAUsuario()"
+                    mat-raised-button 
+                    type="button"
+                    class="botones"
+                    color="primary"
+                    [disabled]="noticiaForm.invalid || tokenUsuario == null">
+    Publicar y notificar
+    </button>
+
+
+    </mat-tab>
+    <mat-tab label="Rol" style="margin-top: 15px;"> 
+
+        <mat-form-field appearance="fill">
+            <mat-label>Roles</mat-label>
+            <mat-select [formControl]="roleSeleccionado">
+              <mat-option *ngFor="let role of roles;" [value]="role">
+                {{role}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field> 
+        
+        
+        <button (click)="enviarARole()"
+                    mat-raised-button 
+                    type="button"
+                    class="botones"
+                    color="primary"
+                    [disabled]="noticiaForm.invalid">
+    Publicar y notificar
+    </button>
+        
+    
+    </mat-tab>
+
+    <mat-tab label="Grupos" style="margin-top: 15px;"> 
+
+    <p>Plantas</p>
+    
+    <mat-checkbox *ngFor="let planta of plantas" [(ngModel)]="planta.check"
+    style="margin-right: 10px;">
+    {{planta.name}}
+    </mat-checkbox>
+
+
+    <hr>
+
+
+    <p>Departamentos</p>
+
+    <mat-checkbox *ngFor="let departamento of departamentos" [(ngModel)]="departamento.check"
+    style="margin-right: 10px;">
+     {{ departamento.name}}   
+    </mat-checkbox>
+
+
+    <hr>
+
+
+    <button (click)="enviarAZonas()"
+                    mat-raised-button 
+                    type="button"
+                    class="botones"
+                    color="primary"
+                    [disabled]="noticiaForm.invalid">
+   Publicar y notificar
+    </button>
+
+        
+    
+    </mat-tab>
+
+  </mat-tab-group>
+
+
+</mat-card>
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+    
+
+
+</div>
+
+

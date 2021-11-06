@@ -1,0 +1,141 @@
+@media screen and (min-width: 1000px) {
+
+
+    .noticia{
+        width: 450px;
+        height: auto;  
+      }    
+
+    .noticas{
+        margin-left: auto;
+        margin-right: auto;
+        width: 600px;
+        height: auto;
+    }    
+   
+    .autor{
+      display: flex;
+      align-items: center;
+      justify-content: left
+    }
+    
+    .image {
+      flex-basis: 15%;
+      width: 50px;
+      height: auto;
+      border-radius: 50%; 
+      justify-content: left
+    }
+
+
+    .text {
+      font-size: 20px;
+      padding-left: 15px;
+      
+    
+    }
+
+   
+
+}
+
+
+@media screen and (max-width: 999px) {
+
+    .noticas{
+        margin-left: auto;
+        margin-right: auto;
+        height: auto;    
+    }
+
+    .autor{
+      display: flex;
+      align-items: center;
+      justify-content: left
+    }
+    
+    .image {
+      flex-basis: 15%;
+      width: 50px;
+      height: auto;
+      border-radius: 50%; 
+      justify-content: left
+    }
+
+    .text {
+      font-size: 20px;
+      padding-left: 15px;
+    
+    }
+
+    .noticia{
+      width: 100%;
+      height: auto;  
+    }
+
+    .descripcion{
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 20px;
+      white-space: pre-wrap;
+    }
+
+    /* mat-card{
+           
+    } */
+
+}
+
+.recortada{
+  margin-top: 10px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.completa{
+  margin-top: 10px;
+  height: auto;
+}
+
+
+
+.multimedia{
+    height: auto;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.bottom-right {
+    background: #145eff;
+    color: white;
+    border-radius: 125px;
+    width: 100%;
+  }
+
+  .links{
+    background: #ff0000;
+    color: white;
+    border-radius: 125px;
+    width: 100%;
+  }
+
+.column {
+    float: left;
+    width: 50%;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .verMas{
+  background:  #002f5a;
+  border-radius: 25px;
+  color: white;
+  font-weight: bold;  
+    }
+
+

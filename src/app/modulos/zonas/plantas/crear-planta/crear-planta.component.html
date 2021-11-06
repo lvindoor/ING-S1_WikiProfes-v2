@@ -1,0 +1,39 @@
+
+
+<form style="text-align: center;" [formGroup]="plantaForm">
+
+<mat-form-field appearance="fill" style="width: 90%;">
+        <mat-label>Nombre de la planta</mat-label>
+        <input matInput 
+        type="text" formControlName="name">
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill" style="width: 90%;">
+        <mat-label>Numero</mat-label>
+        <input matInput 
+        type="text" formControlName="number">
+    </mat-form-field>
+
+
+
+    <div style="text-align: center; margin-top: 15px;">
+
+        <button mat-raised-button
+        (click)="matDialogRef.close()"
+        style="margin-bottom: 15px; margin-right: 10px">
+
+        Cancelar
+
+        </button>   
+
+
+        <button mat-raised-button
+        (click)="guardarDepartamento()"
+        color="primary" [disabled]="plantaForm.invalid || !plantaForm.dirty">
+
+        Guardar
+
+        </button>   
+
+    </div>

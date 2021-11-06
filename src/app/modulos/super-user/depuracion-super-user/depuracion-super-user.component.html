@@ -1,0 +1,179 @@
+<div class="mainDiv" style="text-align: center;">
+
+
+    <p style="font-weight: bold;">Selecciona la opcion para buscar usuarios</p>
+
+    <mat-form-field appearance="fill" style="margin-top: 20px;">
+        <mat-label>Tipos de busquedas</mat-label>
+        <mat-select [formControl]="seleccionTipo"
+        (selectionChange)="busquedaTipo($event.value)">
+          <mat-option *ngFor="let tipo of tiposBusqudas; let i = index" [value]="i">
+            {{tipo}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <br>
+
+    
+
+
+    <div [ngSwitch]="seleccionTipo.value">
+
+      <div *ngSwitchCase="2">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Elige el dia</mat-label>
+          <input matInput [matDatepicker]="picker"
+          (dateChange)="seleccionDia($event.value)">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+
+      </div>
+
+      <div *ngSwitchCase="3">
+
+      <mat-form-field appearance="fill">
+        <mat-label>Numero de empleado</mat-label>
+        <input matInput (change)="numeroDeUsuario($event.target.value)"
+        type="number">
+      </mat-form-field>
+
+      </div>
+
+      <div *ngSwitchCase="4">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Plantas</mat-label>
+          <mat-select 
+          (selectionChange)="buscarPorPlanta($event.value)">
+            <mat-option *ngFor="let planta of plantas;" [value]="planta">
+              {{planta}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+  
+      </div>
+
+      <div *ngSwitchCase="5">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Departamentos</mat-label>
+          <mat-select 
+          (selectionChange)="buscarPorDepartamento($event.value)">
+            <mat-option *ngFor="let departamento of departamentos;" [value]="departamento">
+              {{departamento}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+  
+      </div>
+
+
+      <div *ngSwitchCase="6">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Roles</mat-label>
+          <mat-select 
+          (selectionChange)="buscarPorRole($event.value)">
+            <mat-option *ngFor="let role of roles;" [value]="role">
+              {{role}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+  
+      </div>
+
+    </div>
+
+
+    <button mat-raised-button style="background: red; margin-top: 5px;"
+    [disabled]="usuarios.data.length < 1 "
+    (click)="eliminarUsuarios()">
+
+      Depurar usuarios encontrados
+
+      <mat-icon>
+        delete
+      </mat-icon>
+    </button>
+    
+    
+
+    <table mat-table [dataSource]="usuarios" style=" margin-top: 25px; width: 100%;" >
+
+        <tr mat-header-row *matHeaderRowDef="columnas"  ></tr>
+        <tr mat-row *matRowDef="let row; columns: columnas;" ></tr>
+
+        <!-- Position Column -->
+
+        <ng-container matColumnDef="foto">
+            <th mat-header-cell *matHeaderCellDef width="15%"> Foto </th>
+            <td mat-cell *matCellDef="let element" width="15%"> 
+
+                <img [src]="gafeteUsuario(element.employeeNumber)"
+                style="border-radius: 150px;" width="80">
+
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> 
+  
+             {{ element.fullName}}
+          
+          </td>
+          </ng-container>
+
+        <ng-container matColumnDef="numero">
+          <th mat-header-cell *matHeaderCellDef> Numero de empleado </th>
+          <td mat-cell *matCellDef="let element"> 
+
+            {{ element.employeeNumber}}
+        
+        </td>
+        </ng-container>
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="planta">
+          <th mat-header-cell *matHeaderCellDef> Planta </th>
+          <td mat-cell *matCellDef="let element"> {{element.idPlant}} </td>
+        </ng-container>
+    
+        <!-- Weight Column -->
+        <ng-container matColumnDef="deparamento">
+          <th mat-header-cell *matHeaderCellDef> Departamento </th>
+          <td mat-cell *matCellDef="let element"> {{element.idDepartment}} </td>
+        </ng-container>
+
+        
+    
+        <!-- <ng-container matColumnDef="eliminar">
+            <th mat-header-cell *matHeaderCellDef> Depurar </th>
+            <td mat-cell *matCellDef="let element; let i = index "> 
+                
+              <button mat-raised-button style="background: red;">
+                <mat-icon>
+                    delete
+                </mat-icon>
+              </button>
+        
+          </td>
+          </ng-container> -->
+
+        
+
+    
+        
+      </table>
+
+   
+    
+      <mat-paginator [pageSizeOptions]="[10,20]" showFirstLastButtons></mat-paginator>
+
+</div>
+
+
