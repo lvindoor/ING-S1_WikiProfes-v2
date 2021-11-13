@@ -1,45 +1,30 @@
+import { environment } from 'src/environments/environment';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
-import { NgxOneSignalModule } from 'ngx-onesignal';
+/* Librerias de Firebase */
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
-
-
-
-
-
 @NgModule({
   declarations: [
-    AppComponent,
-
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    AngularFireModule.initializeApp( environment.firebaseKeys ),
-    AngularFireAuthModule,
-    ServiceWorkerModule.register('OneSignalSDKWorker.js', { enabled: environment.production }),
-    NgxOneSignalModule.forRoot({
-      appId: '7852c893-cb4f-4643-ab53-7792a8c12e64',
-      autoRegister:false,
-      notifyButton: {
-        enabled: false,
-        },
-        
-    }),
+    NoopAnimationsModule,
     
+    /* Importaciones de Firebase */
+    BrowserModule,
+    AngularFireModule.initializeApp( environment.firebaseConfig ),
+    AngularFireAuthModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

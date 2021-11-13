@@ -2,23 +2,3 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-.fondo{
-  background: #FAFAFA;  
-}
-
-.barra{
-    background: #FCFCFC;
-
-}
-
-.snackRojo{
-background: #ff0e0ec0;
-color: black;
-}
-
-.snackVerde{
-  background: #3eff0eca;
-  color: black;
-}

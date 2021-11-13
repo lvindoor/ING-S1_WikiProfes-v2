@@ -4,15 +4,20 @@
 
 export const environment = {
   production: false,
-  firebaseKeys: {
-    apiKey: "AIzaSyCVZGT1P1ElAL_k8r86WFPvWSKAQzSLhHE",
-    authDomain: "sanminanewsapp.firebaseapp.com",
-    databaseURL: "https://sanminanewsapp.firebaseio.com",
-    projectId: "sanminanewsapp",
-    storageBucket: "sanminanewsapp.appspot.com",
-    messagingSenderId: "625108487289",
-    appId: "1:625108487289:web:5e3ac4c826811031bb18a8"
+
+  /* Credenciales de Firebase */
+
+  firebaseConfig : {
+    apiKey: "AIzaSyDIur1hT4ierBAX74HCsXWAf7DYvyxWEno",
+    authDomain: "wikiprofes-v2.firebaseapp.com",
+    projectId: "wikiprofes-v2",
+    storageBucket: "wikiprofes-v2.appspot.com",
+    messagingSenderId: "526525026607",
+    appId: "1:526525026607:web:d1fe6bd6b5e3cecd9791da",
+    measurementId: "G-X12WLPEC6C"
   }
+  
+
 };
 
 /*
