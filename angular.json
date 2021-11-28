@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "WikiProfesV2": {
+    "wikiprofes-v2": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,12 +13,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/WikiProfesV2",
+            "outputPath": "dist/wikiprofes-v2",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -42,7 +42,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -64,18 +63,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "WikiProfesV2:build"
+            "browserTarget": "wikiprofes-v2:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "WikiProfesV2:build:production"
+              "browserTarget": "wikiprofes-v2:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "WikiProfesV2:build"
+            "browserTarget": "wikiprofes-v2:build"
           }
         },
         "test": {
@@ -113,16 +112,19 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "WikiProfesV2:serve"
+            "devServerTarget": "wikiprofes-v2:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "WikiProfesV2:serve:production"
+              "devServerTarget": "wikiprofes-v2:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "WikiProfesV2"
+  "defaultProject": "wikiprofes-v2",
+  "cli": {
+    "analytics": false
+  }
 }

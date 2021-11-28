@@ -5,8 +5,7 @@
 export const environment = {
   production: false,
 
-  /* Credenciales de Firebase */
-
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   firebaseConfig : {
     apiKey: "AIzaSyDIur1hT4ierBAX74HCsXWAf7DYvyxWEno",
     authDomain: "wikiprofes-v2.firebaseapp.com",
@@ -16,8 +15,6 @@ export const environment = {
     appId: "1:526525026607:web:d1fe6bd6b5e3cecd9791da",
     measurementId: "G-X12WLPEC6C"
   }
-  
-
 };
 
 /*
