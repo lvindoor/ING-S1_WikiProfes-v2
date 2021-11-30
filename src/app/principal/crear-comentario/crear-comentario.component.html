@@ -1,0 +1,95 @@
+<mat-card>
+
+
+    <form [formGroup]="comentarioForm">
+
+
+
+    
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre del profesor</mat-label>
+        <mat-select formControlName="nombreMaestro">
+          <mat-option *ngFor="let maestro of maestros" [value]="maestro">
+            {{maestro}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+
+   
+
+    <mat-form-field appearance="fill">
+        <mat-label>Materia</mat-label>
+        <mat-select formControlName="materia">
+          <mat-option *ngFor="let materia of materias" [value]="materia">
+            {{materia}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Plantel</mat-label>
+        <mat-select formControlName="plantel">
+          <mat-option *ngFor="let plantel of planteles" [value]="plantel">
+            {{plantel}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Clave</mat-label>
+        <mat-select formControlName="clave">
+          <mat-option *ngFor="let clave of claves" [value]="clave">
+            {{clave}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill"
+    class="input">
+        <mat-label>Conocimiento (1-10)</mat-label>
+        <input matInput type="number" formControlName="conocimiento">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill"
+    class="input">
+        <mat-label>Puntualidad (1-10)</mat-label>
+        <input matInput type="number" formControlName="puntualidad">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill"
+    class="input">
+        <mat-label>Dificultad(1-10)</mat-label>
+        <input matInput type="number" formControlName="dificultad">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill"
+    class="input">
+        <mat-label>Calificacion (1-10)</mat-label>
+        <input matInput type="number" formControlName="calificacion">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill"
+    class="input">
+        <mat-label>Titulo comentario</mat-label>
+        <input matInput formControlName="titulo">
+    </mat-form-field>
+
+
+
+    <mat-form-field class="example-full-width" appearance="fill"
+    class="input">
+        <mat-label>Comentario </mat-label>
+        <textarea matInput formControlName="comentario" > </textarea>
+        
+    </mat-form-field>
+
+    </form>
+
+
+    <button mat-raised-button color="primary"
+    [disabled]="comentarioForm.invalid"
+    (click)="crearComentario()">Guardar comentario</button>
+
+</mat-card>

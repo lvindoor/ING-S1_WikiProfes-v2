@@ -21,29 +21,25 @@ import { CargandoComponent } from './cargando/cargando.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { InicioComponent } from './inicio/inicio.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import { MatIconModule} from '@angular/material/icon';
+import { MenuComponent } from './menu/menu.component';
+import { CrearComentarioComponent } from './crear-comentario/crear-comentario.component';
 
 
-const routes : Routes =[
-  {
-    path:'',
-    component: LoginComponent
-  }, 
-  {
-    path:'comentarios',
-    component: InicioComponent
-  }
-]
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     CargandoComponent,
-    InicioComponent
+    InicioComponent,
+    MenuComponent,
+    CrearComentarioComponent
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild( routes ),
     MatToolbarModule,
     MatCardModule,
     MatButtonModule,
@@ -51,14 +47,15 @@ const routes : Routes =[
     MatDialogModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    RouterModule
   ]
 })
 

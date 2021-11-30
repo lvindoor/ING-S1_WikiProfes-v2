@@ -12,13 +12,22 @@ export class InicioComponent implements OnInit {
   public comentarios : IComentario[];
   public maestros : string[] = [ 'RODRIGUEZ FELIX', 'DAVALOS BOITES', 'HERNANDEZ ALFREDO', 'MUÑOZ LUIS ALBERTO'];
 
-  constructor(private firestore : AngularFirestore) { }
+  constructor(private firestore : AngularFirestore) {
 
-  ngOnInit(): void {  }
+    this.cambioMaestro( this.maestros[0] ); 
+   }
+
+  ngOnInit(): void { 
+
+
+
+   }
 
   public cambioMaestro( nombreMaestro : string ) {
     
     this.comentarios = [];
+
+    console.log('Maestro', nombreMaestro);
 
     this.firestore.collection<IComentario>('comentarios', query =>
     query

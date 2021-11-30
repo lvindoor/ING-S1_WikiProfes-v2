@@ -17,11 +17,16 @@ export class AuthService {
     public firestore: AngularFirestore
   ) 
   
-  {  }
+  { 
+
+ 
+
+   }
 
    public cargarUsuario( data:any ){
      this.usuario = data;
-     localStorage.setItem('login', 'true');
+     
+   
     console.log('Se cargo el usuario', this.usuario);
 
    }

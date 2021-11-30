@@ -67,9 +67,14 @@ export class LoginComponent implements OnInit {
               role : "usuario"
           } 
 
-          this.firestore.collection("usuarios").add(nuevoUsuario).then(() => {
+          this.firestore.collection("usuarios").add(nuevoUsuario).then((doc) => {
+
+            const usuarios : IUsuario = {
+              ...nuevoUsuario,
+              key: doc.id,      
+            };
             
-            this.auth.cargarUsuario( nuevoUsuario );            
+            this.auth.cargarUsuario( usuarios );            
 
             switch( nuevoUsuario.role) {
   
@@ -105,7 +110,7 @@ export class LoginComponent implements OnInit {
             case 'super-usuario': this.router.navigateByUrl('super-usr', { replaceUrl: true });
             break;
 
-            case 'usuario':  this.router.navigateByUrl('inicio/comentarios', { replaceUrl: true });
+            case 'usuario':  this.router.navigateByUrl('inicio', { replaceUrl: true });
             break;
 
             case 'administrador': this.router.navigateByUrl('admin', { replaceUrl: true });
