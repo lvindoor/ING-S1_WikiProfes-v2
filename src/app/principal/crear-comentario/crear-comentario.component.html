@@ -1,10 +1,7 @@
 <mat-card>
-
+  <br><br><br>
 
     <form [formGroup]="comentarioForm">
-
-
-
     
       <mat-form-field appearance="fill">
         <mat-label>Nombre del profesor</mat-label>
@@ -15,35 +12,16 @@
         </mat-select>
       </mat-form-field>
 
-
-
-   
-
-    <mat-form-field appearance="fill">
-        <mat-label>Materia</mat-label>
-        <mat-select formControlName="materia">
-          <mat-option *ngFor="let materia of materias" [value]="materia">
-            {{materia}}
-          </mat-option>
-        </mat-select>
+      <mat-form-field class="example-full-width" appearance="fill"
+      class="input">
+          <mat-label>Materia</mat-label>
+          <input matInput formControlName="materia">
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Plantel</mat-label>
-        <mat-select formControlName="plantel">
-          <mat-option *ngFor="let plantel of planteles" [value]="plantel">
-            {{plantel}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Clave</mat-label>
-        <mat-select formControlName="clave">
-          <mat-option *ngFor="let clave of claves" [value]="clave">
-            {{clave}}
-          </mat-option>
-        </mat-select>
+      <mat-form-field class="example-full-width" appearance="fill"
+      class="input">
+          <mat-label>Clave</mat-label>
+          <input matInput formControlName="clave">
       </mat-form-field>
 
       <mat-form-field class="example-full-width" appearance="fill"

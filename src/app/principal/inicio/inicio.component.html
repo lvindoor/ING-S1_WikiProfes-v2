@@ -8,11 +8,23 @@
    
   </mat-tab-group>
 
-<mat-card *ngFor="let comentario of comentarios">
-    <h1>
-       {{comentario.tituloComentario}} 
-    </h1>
-   
-    <p>{{comentario.comentario}}</p>
-    
+<mat-card class="card" *ngFor="let comentario of comentarios">
+
+  <mat-card-title>
+    <div id="divImagen">
+      <img src="assets/imgs/logoComentario.png" width="100%" height="100%">
+    </div>
+    <p id="tituloProf"> {{ censurar(comentario.tituloComentario) }} </p>
+  </mat-card-title>
+  
+  <br><br><br>
+  <h3>  <b>Clave:</b> {{ censurar(comentario.clave) }} </h3>
+  <h3>  <b>Materia:</b> {{ censurar(comentario.materia) }} </h3>
+  <h3><pre>  <b>Puntualidad:</b> [{{ comentario.puntualidad }}]    <b>Conocimiento:</b> [{{ comentario.conocimiento }}] </pre></h3>
+  <h3><pre>  <b>Dificultad:</b>  [{{ comentario.dificultad }}]     <b>Calificación:</b> [{{ comentario.calificacion }}] </pre></h3>
+  <h3>  <b>Comentario:</b> </h3>
+  <p> {{ censurar(comentario.comentario) }} </p>
+
 </mat-card>
+
+

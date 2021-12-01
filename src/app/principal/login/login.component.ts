@@ -78,13 +78,13 @@ export class LoginComponent implements OnInit {
 
             switch( nuevoUsuario.role) {
   
-              case 'super-usuario': this.router.navigateByUrl('super-usr', { replaceUrl: true });
+              case 'super-usuario': this.router.navigateByUrl('inicio', { replaceUrl: true });
               break;
 
               case 'usuario':  this.router.navigateByUrl('inicio', { replaceUrl: true });
               break;
 
-              case 'administrador': this.router.navigateByUrl('admin', { replaceUrl: true });
+              case 'administrador': this.router.navigateByUrl('inicio', { replaceUrl: true });
               break;      
 
             } 
@@ -107,13 +107,13 @@ export class LoginComponent implements OnInit {
 
           switch( usuario.role) {
 
-            case 'super-usuario': this.router.navigateByUrl('super-usr', { replaceUrl: true });
+            case 'super-usuario': this.router.navigateByUrl('inicio', { replaceUrl: true });
             break;
 
             case 'usuario':  this.router.navigateByUrl('inicio', { replaceUrl: true });
             break;
 
-            case 'administrador': this.router.navigateByUrl('admin', { replaceUrl: true });
+            case 'administrador': this.router.navigateByUrl('inicio', { replaceUrl: true });
             break;      
 
           } 

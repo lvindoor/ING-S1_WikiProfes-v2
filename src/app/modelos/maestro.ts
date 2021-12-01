@@ -1,4 +1,5 @@
 export interface IMaestro{
     key?:string;
-    nombre:string; 
+    nombre:string;
+    departamento:string; 
 }

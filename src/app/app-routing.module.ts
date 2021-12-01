@@ -4,6 +4,7 @@ import { CrearComentarioComponent } from './principal/crear-comentario/crear-com
 import { InicioComponent } from './principal/inicio/inicio.component';
 import { LoginComponent } from './principal/login/login.component';
 import { MenuComponent } from './principal/menu/menu.component';
+import { SugerenciasComponent } from './principal/sugerencias/sugerencias.component';
 
 const routes: Routes = [
 
@@ -23,9 +24,11 @@ const routes: Routes = [
       {
         path:'crear-comentario',
         component: CrearComentarioComponent
+      },
+      {
+        path:'sugerencias',
+        component: SugerenciasComponent
       }
-
-
     ]
   }, 
 //  {

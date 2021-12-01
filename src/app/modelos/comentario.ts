@@ -6,7 +6,6 @@ export interface IComentario {
     nombreMaestro:string;
     materia: string;
     clave: string;
-    plantel: string;
     comentario:string;
     conocimiento: string;
     puntualidad: number;

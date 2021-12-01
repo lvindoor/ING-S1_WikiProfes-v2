@@ -32,21 +32,25 @@ export class MenuComponent implements OnInit {
 
   public cargarRutas(){
 
-    if(this.auth.usuario.role === 'usuario'){
-      this.opcionesMenu = [
-        {
-          link:'comentarios',
-          icon:'question_answer',
-          nombre:'Comentarios'
-        },
-        {
+  if(this.auth.usuario.role === 'usuario'){
+    this.opcionesMenu = [
+      {
+        link:'comentarios',
+        icon:'question_answer',
+        nombre:'Comentarios'
+      },
+      {
         link:'crear-comentario',
         nombre:'Crear comentario',
         icon:'add_comment'
       },
-
+      {
+        link:'sugerencias',
+        nombre:'Sugerencias',
+        icon:'contact_support'
+      },
     ];
-    }
+  }
 
   }
 

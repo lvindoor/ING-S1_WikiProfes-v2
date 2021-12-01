@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IComentario } from 'src/app/modelos/comentario';
+import { IMaestro } from 'src/app/modelos/maestro';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { CargandoComponent } from '../cargando/cargando.component';
 
@@ -15,28 +16,37 @@ import { CargandoComponent } from '../cargando/cargando.component';
 export class CrearComentarioComponent implements OnInit {
 
   public comentarioForm: FormGroup;
+  public maestros : string[] = [];
 
   constructor(
     private firestore: AngularFirestore,
     private auth: AuthService,
     private matSnack: MatSnackBar,
     private matDialog: MatDialog
-  ) { }
+  ) 
+  {
+    /* Cargamos Maestros */
+    this.firestore.collection('profesores').valueChanges().subscribe(profesores => {
+
+      if(profesores != null) {
+
+        profesores.forEach( (maestro) => {
+
+          const profesor : IMaestro = (maestro as any);
+          this.maestros.push( profesor.nombre );         
+
+        });
+      } 
+
+    });
+
+    console.log('Se cargaron los maestros en: ', this.maestros);
+  }
 
   ngOnInit(): void {
 
     this.cargarForm();
   }
-
-
-  public materias = ['Español','Matematicas','Ingles','Progamacion'];
-
-  public planteles = ['pl1','pl2','pl3','pl4'];
-
-  public claves = ['dasasd','fdfsdf','dfgdfgdfg'];
-
-  public maestros : string[] = [ 'RODRIGUEZ FELIX', 'DAVALOS BOITES', 'HERNANDEZ ALFREDO', 'MUÑOZ LUIS ALBERTO'];
-
 
   public mostrarCargando(mensaje:string){
 
@@ -72,7 +82,6 @@ export class CrearComentarioComponent implements OnInit {
       dificultad: this.comentarioForm.value.dificultad,
       materia: this.comentarioForm.value.materia,
       nombreMaestro :this.comentarioForm.value.nombreMaestro,
-      plantel: this.comentarioForm.value.plantel,
       puntualidad: this.comentarioForm.value.puntualidad,
       tituloComentario: this.comentarioForm.value.comentario
     };
@@ -89,7 +98,6 @@ export class CrearComentarioComponent implements OnInit {
     this.comentarioForm.reset({
       nombreMaestro  : null,
       materia : null,
-      plantel : null,
       clave : null,
       conocimiento : null,
       puntualidad : null,
@@ -119,7 +127,6 @@ export class CrearComentarioComponent implements OnInit {
     this.comentarioForm = new FormGroup({
       nombreMaestro : new FormControl(null, Validators.required),
       materia: new FormControl(null, Validators.required),
-      plantel: new FormControl(null, Validators.required),
       clave: new FormControl(null, Validators.required),
       conocimiento:new FormControl(null, Validators.required),
       puntualidad: new FormControl(null, Validators.required),
@@ -128,10 +135,6 @@ export class CrearComentarioComponent implements OnInit {
       titulo: new FormControl(null, Validators.required),
       comentario: new FormControl(null, Validators.required)
     });
-
-
-    
-
 
   }
 
