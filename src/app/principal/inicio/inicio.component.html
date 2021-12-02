@@ -1,4 +1,29 @@
+<div class="mainDiv" style="text-align: center;">
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Filtro de profesor</mat-label>
+    <mat-select formControlName="nombreMaestro"
+    (selectionChange)="cambioMaestro($event.value)">
+    <mat-option *ngFor="let maestro of maestros" [value]="maestro">
+      {{maestro}}
+    </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field appearance="fill">
+    <mat-label>Filtros</mat-label>
+    <mat-select formControlName="tipoFiltro">
+    <mat-option *ngFor="let filtro of filtros" [value]="filtro">
+      {{filtro}}
+    </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+
+
 <mat-tab-group mat-align-tabs="center" 
+[(selectedIndex)]="maestroActual"
 (selectedTabChange)="cambioMaestro($event.tab.textLabel)">
 
 
@@ -6,25 +31,24 @@
 
     </mat-tab>
    
-  </mat-tab-group>
+</mat-tab-group>
 
 <mat-card class="card" *ngFor="let comentario of comentarios">
 
-  <mat-card-title>
-    <div id="divImagen">
-      <img src="assets/imgs/logoComentario.png" width="100%" height="100%">
-    </div>
-    <p id="tituloProf"> {{ censurar(comentario.tituloComentario) }} </p>
-  </mat-card-title>
-  
-  <br><br><br>
-  <h3>  <b>Clave:</b> {{ censurar(comentario.clave) }} </h3>
-  <h3>  <b>Materia:</b> {{ censurar(comentario.materia) }} </h3>
-  <h3><pre>  <b>Puntualidad:</b> [{{ comentario.puntualidad }}]    <b>Conocimiento:</b> [{{ comentario.conocimiento }}] </pre></h3>
-  <h3><pre>  <b>Dificultad:</b>  [{{ comentario.dificultad }}]     <b>Calificación:</b> [{{ comentario.calificacion }}] </pre></h3>
-  <h3>  <b>Comentario:</b> </h3>
-  <p> {{ censurar(comentario.comentario) }} </p>
+  <mat-card-header>
+    <div mat-card-avatar class="icono-comentario-profesor"></div>
+    <mat-card-title> <br> {{ censurar(comentario.tituloComentario) }} </mat-card-title>    
+  </mat-card-header>
+
+  <p>  <b>Clave:</b> {{ censurar(comentario.clave) }}        <b>Materia:</b> {{ censurar(comentario.materia) }} </p>
+  <p>  <b>Puntualidad:</b> [{{ comentario.puntualidad }}]    <b>Conocimiento:</b> [{{ comentario.conocimiento }}] </p>
+  <p>  <b>Dificultad:</b>  [{{ comentario.dificultad }}]     <b>Calificación:</b> [{{ comentario.calificacion }}] </p>
+  <p>  <b>Comentario:</b>  {{ censurar(comentario.comentario) }} </p>
+  <mat-card-subtitle> Publicado por: {{comentario.autor.nombreCompleto}} 
+    <br> {{comentario.fechaComentario}} </mat-card-subtitle>
 
 </mat-card>
 
-
+<a mat-fab href="https://drive.google.com/drive/u/0/folders/1W4OwOHsMTJj4O3Y-TrZo4ESAL2SQsqZt" id="boton-ayuda" color="primary">
+  <mat-icon>question_mark</mat-icon>
+</a>

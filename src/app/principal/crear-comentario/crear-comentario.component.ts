@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { IComentario } from 'src/app/modelos/comentario';
 import { IMaestro } from 'src/app/modelos/maestro';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { DatePipe } from '@angular/common'
 import { CargandoComponent } from '../cargando/cargando.component';
 
 @Component({
@@ -22,7 +23,8 @@ export class CrearComentarioComponent implements OnInit {
     private firestore: AngularFirestore,
     private auth: AuthService,
     private matSnack: MatSnackBar,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    public datepipe: DatePipe
   ) 
   {
     /* Cargamos Maestros */
@@ -83,7 +85,8 @@ export class CrearComentarioComponent implements OnInit {
       materia: this.comentarioForm.value.materia,
       nombreMaestro :this.comentarioForm.value.nombreMaestro,
       puntualidad: this.comentarioForm.value.puntualidad,
-      tituloComentario: this.comentarioForm.value.comentario
+      tituloComentario: this.comentarioForm.value.titulo,
+      fechaComentario : this.datepipe.transform((new Date), 'MM/dd/yyyy h:mm:ss')
     };
 
     try{

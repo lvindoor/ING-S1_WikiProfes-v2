@@ -11,5 +11,6 @@ export interface IComentario {
     puntualidad: number;
     dificultad: number;
     calificacion: number;   
-    tituloComentario:string;
+    tituloComentario: string;
+    fechaComentario: string;
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { IComentario } from 'src/app/modelos/comentario';
 import { IMaestro } from 'src/app/modelos/maestro';
 import { MALAS_PALABRAS } from './comentarios.json';
@@ -13,13 +14,15 @@ export class InicioComponent implements OnInit {
 
   public comentarios : IComentario[];
   public maestros : string[] = []; 
+  public filtros : string[] = [ "Conocimiento", "Puntualidad", "Promedio", "Dificultad"];
   
   malasPalabras: string[] = [];
   palabra: string = "";
   comentarioCensurado: string = "";
+  maestroActual : number = 0;
     
 
-  constructor(private firestore : AngularFirestore) {
+  constructor(private firestore : AngularFirestore, private matSnack: MatSnackBar) {
 
     /* Cargamos Maestros */
     this.firestore.collection('profesores').valueChanges().subscribe(profesores => {
@@ -44,19 +47,19 @@ export class InicioComponent implements OnInit {
   ngOnInit(): void {}
 
   public cambioMaestro( nombreMaestro : string ) {
-    
+
     this.comentarios = [];
+    this.maestroActual = this.maestros.findIndex(m => m === nombreMaestro);
 
     console.log('Maestro', nombreMaestro);
 
     this.firestore.collection<IComentario>('comentarios', query =>
-    query
-    .where('nombreMaestro','==', nombreMaestro)
+      query.where('nombreMaestro','==', nombreMaestro).orderBy('fechaComentario','desc')
     )
     .get()
     .subscribe( documentos =>{
 
-        if(!documentos.empty){
+        if(!documentos.empty) {
 
 
           documentos.forEach( (documento) =>{
@@ -64,23 +67,43 @@ export class InicioComponent implements OnInit {
             const comentario : IComentario = documento.data();
             comentario.key = documento.id;
 
-            this.comentarios.push( comentario );
+            let esRepetido = false;
+
+            for(let c of this.comentarios) {
+              if(c.key === comentario.key) {
+                esRepetido = true;
+              } 
+            } 
+
+            if(!esRepetido) {
+              this.comentarios.push( comentario );
+            }             
 
           });
 
           console.log('Se cargaron los comentarios', this.comentarios);
+          this.mostrarSncak("Se Cargo: " + this.comentarios.length + " comentario(s)", "snackVerde");
 
         }
 
     },err =>{
       console.log('Error al cargar los comentarios', err);
     });
-
   } 
-  
+
+  private mostrarSncak(mensaje: string, color:string){
+
+    this.matSnack.open(mensaje, null, {
+      panelClass: color,
+      duration: 3000
+    });
+
+  }
+
   revisar(palabra: string, malasPalabras: string[]): string{
     for(let i = 0; i < malasPalabras.length; i++) {
-      if(malasPalabras[i] == palabra){
+      let palabraMinuscula = palabra;
+      if(malasPalabras[i] == palabraMinuscula.toLowerCase()){
           return "***";
       }
     }
@@ -110,4 +133,3 @@ export class InicioComponent implements OnInit {
   }
 
 }
-

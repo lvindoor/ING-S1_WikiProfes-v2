@@ -47,7 +47,7 @@ export class MenuComponent implements OnInit {
       {
         link:'sugerencias',
         nombre:'Sugerencias',
-        icon:'contact_support'
+        icon:'how_to_vote'
       },
     ];
   }

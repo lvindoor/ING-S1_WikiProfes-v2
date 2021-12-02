@@ -211,3 +211,14 @@
 h3 {
   line-height : 15px;
 } 
+
+.icono-comentario-profesor {
+  background-image: url("../../../assets/imgs/logoComentario.png");
+  background-size: cover;
+} 
+
+#boton-ayuda {
+  position: fixed;
+  bottom: 2%;
+  right: 2%; 
+}
